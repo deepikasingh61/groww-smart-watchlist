@@ -220,7 +220,7 @@ function App() {
           </h1>
 
           <p className="subtitle">
-            Here's what changed since you last looked.
+            Here's what's changed since you last looked.
           </p>
         </section>
 
