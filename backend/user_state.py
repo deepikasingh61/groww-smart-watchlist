@@ -1,6 +1,7 @@
 import json
 import os
 from datetime import datetime
+from zoneinfo import ZoneInfo
 
 
 STATE_FILE = "user_state.json"
@@ -27,8 +28,12 @@ def save_user_state(watchlist):
     when the user checks their market watchlist.
     """
 
+    india_time = datetime.now(
+        ZoneInfo("Asia/Kolkata")
+    )
+
     state = {
-        "last_checked": datetime.now().isoformat(),
+        "last_checked": india_time.isoformat(),
         "last_seen_prices": {
             stock["symbol"]: stock["price"]
             for stock in watchlist
