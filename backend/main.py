@@ -14,24 +14,32 @@ from user_state import load_user_state, save_user_state
 app = FastAPI()
 
 
-class StockRequest(BaseModel):
-    symbol: str
+# ==========================================
+# CORS CONFIGURATION
+# ==========================================
 
-
-# Allow React frontend to communicate with FastAPI backend
 app.add_middleware(
     CORSMiddleware,
     allow_origins=[
-    "http://localhost:5173",
-    "http://127.0.0.1:5173",
-    "http://localhost:5174",
-    "http://127.0.0.1:5174"
-],
+        "http://localhost:5173",
+        "http://127.0.0.1:5173",
+        "http://localhost:5174",
+        "http://127.0.0.1:5174",
+        "https://groww-smart-watchlist-red.vercel.app"
+    ],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
 )
 
+
+class StockRequest(BaseModel):
+    symbol: str
+
+
+# ==========================================
+# HOME
+# ==========================================
 
 @app.get("/")
 def home():
@@ -39,6 +47,10 @@ def home():
         "message": "PULSE backend is running"
     }
 
+
+# ==========================================
+# HEALTH CHECK
+# ==========================================
 
 @app.get("/api/health")
 def health_check():
@@ -66,6 +78,7 @@ def get_signals():
     watchlist = load_watchlist()
 
     user_state = load_user_state()
+
     last_seen_prices = user_state.get(
         "last_seen_prices",
         {}
