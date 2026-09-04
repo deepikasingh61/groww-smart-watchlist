@@ -2,9 +2,9 @@
     {
         "symbol": "RELIANCE",
         "name": "Reliance Industries Limited",
-        "price": 1322.0,
+        "price": 1400.0,
         "previous_price": 1302.5,
-        "change_percent": 1.5,
+        "change_percent": 5.9,
         "normal_volatility": 1.4,
         "target_price": null,
         "previous_direction": "up"
