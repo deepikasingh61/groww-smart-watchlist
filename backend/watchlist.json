@@ -1,0 +1,72 @@
+[
+    {
+        "symbol": "RELIANCE",
+        "name": "Reliance Industries Limited",
+        "price": 1322.0,
+        "previous_price": 1302.5,
+        "change_percent": 1.5,
+        "normal_volatility": 1.4,
+        "target_price": null,
+        "previous_direction": "up"
+    },
+    {
+        "symbol": "TCS",
+        "name": "Tata Consultancy Services Limited",
+        "price": 2304.0,
+        "previous_price": 2320.1,
+        "change_percent": -0.69,
+        "normal_volatility": 0.9,
+        "target_price": 3400,
+        "previous_direction": "down"
+    },
+    {
+        "symbol": "INFY",
+        "name": "Infosys Limited",
+        "price": 1130.0,
+        "previous_price": 1130.3,
+        "change_percent": -0.03,
+        "normal_volatility": 1.1,
+        "target_price": null,
+        "previous_direction": "down"
+    },
+    {
+        "symbol": "HDFCBANK",
+        "name": "HDFC Bank Limited",
+        "price": 712.1,
+        "previous_price": 706.65,
+        "change_percent": 0.77,
+        "normal_volatility": 0.8,
+        "target_price": 1700,
+        "previous_direction": "up"
+    },
+    {
+        "symbol": "ICICIBANK",
+        "name": "ICICI Bank Limited",
+        "price": 1423.2,
+        "previous_price": 1430.0,
+        "change_percent": -0.48,
+        "normal_volatility": 0.7,
+        "target_price": null,
+        "previous_direction": "down"
+    },
+    {
+        "symbol": "ITC",
+        "name": "ITC Limited",
+        "price": 264.1,
+        "previous_price": 263.0,
+        "change_percent": 0.42,
+        "normal_volatility": 1,
+        "target_price": null,
+        "previous_direction": "up"
+    },
+    {
+        "symbol": "SBIN",
+        "name": "State Bank of India",
+        "price": 1016.1,
+        "previous_price": 1023.4,
+        "change_percent": -0.71,
+        "normal_volatility": 1.0,
+        "target_price": null,
+        "previous_direction": "down"
+    }
+]
