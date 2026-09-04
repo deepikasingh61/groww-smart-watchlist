@@ -1,9 +1,21 @@
+import math
 import yfinance as yf
+
+
+def is_valid_number(value):
+    """
+    Check if a value is a valid finite number.
+    Rejects NaN and infinity.
+    """
+    try:
+        return value is not None and math.isfinite(float(value))
+    except (TypeError, ValueError):
+        return False
 
 
 def get_stock_data(symbol: str):
     """
-    Fetch real stock market data from Yahoo Finance.
+    Fetch latest stock market data from Yahoo Finance.
     Assumes NSE-listed stocks.
     """
 
@@ -15,11 +27,28 @@ def get_stock_data(symbol: str):
         # Get recent historical data
         history = stock.history(period="5d")
 
-        if history.empty:
+        # Need at least 2 valid data points
+        if history.empty or len(history) < 2:
             return None
 
-        current_price = round(float(history["Close"].iloc[-1]), 2)
-        previous_close = round(float(history["Close"].iloc[-2]), 2)
+        current_raw = history["Close"].iloc[-1]
+        previous_raw = history["Close"].iloc[-2]
+
+        # Prevent NaN from entering the application
+        if not is_valid_number(current_raw):
+            print(f"Invalid current price received for {symbol}")
+            return None
+
+        if not is_valid_number(previous_raw):
+            print(f"Invalid previous price received for {symbol}")
+            return None
+
+        current_price = round(float(current_raw), 2)
+        previous_close = round(float(previous_raw), 2)
+
+        # Prevent division by zero
+        if previous_close == 0:
+            return None
 
         # Calculate percentage change
         change_percent = round(
@@ -27,9 +56,16 @@ def get_stock_data(symbol: str):
             2
         )
 
-        # Get company information
-        info = stock.info
-        company_name = info.get("longName", symbol)
+        # Final validation
+        if not is_valid_number(change_percent):
+            return None
+
+        # Get company information safely
+        try:
+            info = stock.info
+            company_name = info.get("longName", symbol)
+        except Exception:
+            company_name = symbol
 
         return {
             "symbol": symbol,
@@ -46,7 +82,7 @@ def get_stock_data(symbol: str):
 
 def create_stock_from_market_data(symbol: str):
     """
-    Create a complete PULSE stock object using real market data.
+    Create a complete PULSE stock object using market data.
     """
 
     data = get_stock_data(symbol)
@@ -71,6 +107,7 @@ def create_stock_from_market_data(symbol: str):
         ),
     }
 
+
 def refresh_stock_data(stock):
     """
     Fetch latest market data and update an existing stock.
@@ -81,20 +118,20 @@ def refresh_stock_data(stock):
     real_data = get_stock_data(symbol)
 
     # If market data couldn't be fetched,
+    # OR invalid data was returned,
     # keep the existing stock unchanged
     if not real_data:
+        print(f"Keeping existing data for {symbol}")
         return stock
 
     return {
         **stock,
 
-        # Update real-time market fields
         "name": real_data["name"],
         "price": real_data["price"],
         "previous_price": real_data["previous_price"],
         "change_percent": real_data["change_percent"],
 
-        # Update direction based on latest movement
         "previous_direction": (
             "up"
             if real_data["change_percent"] > 0
