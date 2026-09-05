@@ -20,30 +20,6 @@ function App() {
 
 
   // ==========================================
-  // FETCH WATCHLIST
-  // ==========================================
-
-  const fetchWatchlist = async () => {
-    try {
-      const response = await fetch(
-        `${API_URL}/api/watchlist`
-      );
-
-      if (!response.ok) {
-        throw new Error("Failed to fetch watchlist");
-      }
-
-      const data = await response.json();
-
-      setWatchlist(data);
-
-    } catch (error) {
-      console.error("Failed to fetch watchlist:", error);
-    }
-  };
-
-
-  // ==========================================
   // FETCH MEANINGFUL SIGNALS
   // ==========================================
 
@@ -63,30 +39,6 @@ function App() {
 
     } catch (error) {
       console.error("Failed to fetch signals:", error);
-    }
-  };
-
-
-  // ==========================================
-  // FETCH USER STATE
-  // ==========================================
-
-  const fetchUserState = async () => {
-    try {
-      const response = await fetch(
-        `${API_URL}/api/state`
-      );
-
-      if (!response.ok) {
-        throw new Error("Failed to fetch user state");
-      }
-
-      const data = await response.json();
-
-      setLastChecked(data.last_checked);
-
-    } catch (error) {
-      console.error("Failed to fetch user state:", error);
     }
   };
 
